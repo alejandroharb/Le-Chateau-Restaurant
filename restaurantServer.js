@@ -55,9 +55,17 @@ app.get('/reserve', function(req, res) {
     res.sendFile(path.join(__dirname, 'reserve.html'))
 });
 
-app.get('/table', function(req, res) {
-    res.json([reservation,waitList]);
+app.get('/tables', function(req, res) {
+    res.sendFile(path.join(__dirname, 'tables.html'))
 });
+
+app.get('/tables-data', function(req, res) {
+    res.json([reservation,waitList]);
+})
+
+// app.get('/clear', function(req,res) {
+
+// })
 
 //POST request
 app.post('/reservation-request', function(req, res) {
