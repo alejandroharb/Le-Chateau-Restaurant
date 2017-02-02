@@ -134,7 +134,7 @@
             tableReserve += '</div></li>';
         });
 
-        $.each(data[0], function(){
+        $.each(data[1], function(){
             tableWaiting += '<li class="collection-item">';
             tableWaiting += '<div>' + this.name;
             tableWaiting += '<a href="#!" class="secondary-content"><i class="material-icons">send</i></a>';
@@ -143,7 +143,7 @@
 
         // Inject the whole content string into our existing HTML table
         $('#currentReservations').html(tableReserve);
-        $('#waitingList ').html(tableWaiting);
+        $('#waitingList').html(tableWaiting);
 
     });
 
