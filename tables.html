@@ -7,8 +7,14 @@
 
   <!-- CSS  -->
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/>
-  <link href="css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/>
+  <!-- <link href="./css/materialize.css" type="text/css" rel="stylesheet" media="screen,projection"/> -->
+  <!-- <link href="./css/style.css" type="text/css" rel="stylesheet" media="screen,projection"/> -->
+
+  <!-- Compiled and minified CSS -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.min.css">
+
+  <!-- Compiled and minified JavaScript -->
+          
 </head>
 <body>
   <nav class="light-blue lighten-1" role="navigation">
@@ -47,10 +53,9 @@
         <div class="col s12 m12">
           <ul class="collection with-header">
               <li class="collection-header"><h4>Current Reservations</h4></li>
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+               <div id="currentReservations"> 
+                 <li class="collection-item"><div>Nobody currently dining.<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+               </div>
           </ul>
         </div>
       </div>
@@ -59,23 +64,13 @@
         <div class="col s12 m12">
           <ul class="collection with-header">
               <li class="collection-header"><h4>Waiting List</h4></li>
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-              <li class="collection-item"><div>Alvin<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
-            </ul>
+               <div id="waitingList"> 
+                 <li class="collection-item"><div>Nobody is currently waiting.<a href="#!" class="secondary-content"><i class="material-icons">send</i></a></div></li>
+               </div>
+          </ul>
         </div>
       </div>
 
-     <!--    <div class="col s12 m4">
-          <div class="icon-block">
-            <h2 class="center light-blue-text"><i class="material-icons">settings</i></h2>
-            <h5 class="center">Easy to work with</h5>
-
-            <p class="light">We have provided detailed documentation as well as specific code examples to help new users get started. We are also always open to feedback and can answer any questions a user may have about Materialize.</p>
-          </div>
-        </div>
-      </div> -->
 
     </div>
     <br><br>
@@ -86,15 +81,15 @@
   </div>
 
   <footer class="page-footer orange">
-    <!-- <div class="container">
+    <div class="container">
       <div class="row">
         <div class="col l6 s12">
           <h5 class="white-text">Company Bio</h5>
-          <p class="grey-text text-lighten-4">We are a team of college students working on this project like it's our full time job. Any amount would help support and continue development on this project and is greatly appreciated.</p>
+          <p class="grey-text text-lighten-4">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ex voluptatem explicabo eveniet nemo ea ipsa officiis ad unde pariatur fugit. Consectetur nesciunt doloremque dolores. Illum rerum sapiente eaque asperiores dolore?</p>
 
 
         </div>
-        <div class="col l3 s12">
+        <!-- <div class="col l3 s12">
           <h5 class="white-text">Settings</h5>
           <ul>
             <li><a class="white-text" href="#!">Link 1</a></li>
@@ -102,18 +97,18 @@
             <li><a class="white-text" href="#!">Link 3</a></li>
             <li><a class="white-text" href="#!">Link 4</a></li>
           </ul>
-        </div>
+        </div> -->
         <div class="col l3 s12">
-          <h5 class="white-text">Connect</h5>
+          <h5 class="white-text">JSON</h5>
           <ul>
-            <li><a class="white-text" href="#!">Link 1</a></li>
-            <li><a class="white-text" href="#!">Link 2</a></li>
+            <li><a class="white-text" href="./tables-data">Tables</a></li>
+            <!-- <li><a class="white-text" href="#!">Link 2</a></li>
             <li><a class="white-text" href="#!">Link 3</a></li>
-            <li><a class="white-text" href="#!">Link 4</a></li>
+            <li><a class="white-text" href="#!">Link 4</a></li> -->
           </ul>
         </div>
       </div>
-    </div> -->
+    </div>
     <div class="footer-copyright">
       <div class="container">
       Made by <a class="orange-text text-lighten-3" href="http://materializecss.com">A super duper front-end team</a>
@@ -124,8 +119,40 @@
 
   <!--  Scripts-->
   <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-  <script src="js/materialize.js"></script>
-  <script src="js/init.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/js/materialize.min.js"></script>
+  <!-- <script src="./js/init.js"></script> -->
+  <script type="text/javascript">
+      var tableReserve ="";
+      var tableWaiting ="";
+      $.getJSON( '/tables-data', function(data) {
+          console.log(data[0])
+        // For each item in our JSON, add a table row and cells to the content string
+        $.each(data[0], function(){
+            tableReserve += '<li class="collection-item">';
+            tableReserve += '<div>' + this.name;
+            tableReserve += '<a href="#!" class="secondary-content"><i class="material-icons">send</i></a>';
+            tableReserve += '</div></li>';
+        });
+
+        $.each(data[0], function(){
+            tableWaiting += '<li class="collection-item">';
+            tableWaiting += '<div>' + this.name;
+            tableWaiting += '<a href="#!" class="secondary-content"><i class="material-icons">send</i></a>';
+            tableWaiting += '</div></li>';
+        });
+
+        // Inject the whole content string into our existing HTML table
+        $('#currentReservations').html(tableReserve);
+        $('#waitingList ').html(tableWaiting);
+
+    });
+
+
+
+
+  </script>
+
+
 
   </body>
 </html>
