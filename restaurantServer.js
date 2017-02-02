@@ -59,13 +59,45 @@ app.get('/tables', function(req, res) {
     res.sendFile(path.join(__dirname, 'tables.html'))
 });
 
+app.get('/manager', function(req, res) {
+    res.sendFile(path.join(__dirname, 'manager.html'))
+});
+
+
 app.get('/tables-data', function(req, res) {
     res.json([reservation,waitList]);
 })
 
-// app.get('/clear', function(req,res) {
+app.delete('/update-reservation/:id?', function(req,res) {
+    var user = req.params.id;
+    console.log(user);
+    if(user) {
+        for(var i =0; i < reservation.length; i++) {
+            if(user === reservation[i].id) {
+                reservation.splice(i,1);
+                reservation.unshift(waitList[0]);
+                waitList.shift();
+                res.json([reservation, waitList]);
+            }
+        }
+    } else {
+        res.json([reservation, waitList])
+    }
+})
 
-// })
+app.delete('/cancel-waitlist/:id?', function(req,res) {
+    var user = req.params.id;
+    if(user) {
+        for(var i =0; i < waitList.length; i++) {
+            if(user === waitList[i].id) {
+                waitList.splice(i,1);
+                res.json([reservation, waitList]);
+            }
+        }
+    } else {
+        res.json([reservation, waitList])
+    }
+})
 
 //POST request
 app.post('/reservation-request', function(req, res) {
